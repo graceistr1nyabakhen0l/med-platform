@@ -7,6 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api/v1');
+  app.enableCors(); // Mengizinkan request dari frontend port 3001
 
   const config = new DocumentBuilder()
     .setTitle('Medical Platform API')
@@ -19,7 +20,7 @@ async function bootstrap() {
 
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(3000);
+  await app.listen(3000, '0.0.0.0');
 
   console.log('Backend run on port 3000');
   console.log('Swagger: http://localhost:3000/swagger');

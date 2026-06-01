@@ -20,6 +20,11 @@ export class TransactionController {
         return this.transactionService.sendChat(body.bookingId, req.user.id, body.pesan);
     }
 
+    @Get('/bookings')
+    async getBookings(@Req() req: any) {
+        return this.transactionService.getBookings(Number(req.user.id), req.user.role);
+    }
+
     @Get('/chats/:bookingId')
     async getChats(@Param('bookingId') bookingId: string) {
         // FIX: Ubah parameter string bookingId dari URL menjadi number

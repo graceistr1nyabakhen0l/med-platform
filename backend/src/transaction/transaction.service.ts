@@ -15,6 +15,29 @@ export class TransactionService {
         });
     }
 
+    async getBookings(userId: number, role: string) {
+        if (role === 'PASIEN') {
+            return this.prisma.booking.findMany({
+                where: { pasienId: Number(userId) },
+                include: {
+                    dokter: { select: { id: true, nama: true, profilDokter: true } },
+                    resepDigital: true
+                },
+                orderBy: { createdAt: 'desc' },
+            });
+        } else if (role === 'DOKTER') {
+            return this.prisma.booking.findMany({
+                where: { dokterId: Number(userId) },
+                include: {
+                    pasien: { select: { id: true, nama: true, email: true } },
+                    resepDigital: true
+                },
+                orderBy: { createdAt: 'desc' },
+            });
+        }
+        return [];
+    }
+
     async sendChat(bookingId: number, senderId: number, pesan: string) {
         return this.prisma.chat.create({
             data: { bookingId: Number(bookingId), senderId: Number(senderId), pesan },
