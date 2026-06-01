@@ -25,7 +25,7 @@ export default function LoginPage() {
       const data = response.data;
       
       setToken(data.access_token);
-      setUser({ role: data.role, nama: data.nama });
+      setUser({ role: data.role, nama: data.nama, email: data.email });
       
       if (data.role === "PASIEN") {
         router.push("/dashboard/pasien");
