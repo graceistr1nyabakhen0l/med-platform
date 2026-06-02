@@ -8,7 +8,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey: 'UKL_SUPER_RAHASIA_MEDIS_2026',
+            // SEKARANG MEMBACA DARI ENV, JIKA KOSONG BARU PAKAI DEFAULT
+            secretOrKey: process.env.JWT_SECRET || 'rahasia_super_aman_untuk_ujian_hospa',
         });
     }
 
