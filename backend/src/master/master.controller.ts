@@ -38,8 +38,8 @@ export class MasterController {
     }
 
     @Get('obat/dokter')
-    // @UseGuards(AuthGuard('jwt'), RolesGuard)
-    // @Roles('DOKTER')
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Roles('DOKTER')
     async getObatDokter() {
         return this.masterService.getAllObat();
     }
