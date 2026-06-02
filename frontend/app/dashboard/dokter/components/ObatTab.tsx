@@ -9,11 +9,10 @@ import { Pill, Plus, Edit2, Trash2, X, Search } from "lucide-react";
 
 export default function ObatTab() {
   const { addToast } = useToast();
-  
+
   const [obat, setObat] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  
-  // Modal State
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"tambah" | "edit">("tambah");
   const [currentObatId, setCurrentObatId] = useState<number | null>(null);
@@ -60,7 +59,7 @@ export default function ObatTab() {
 
   const handleDelete = async (id: number) => {
     if (!confirm("Apakah Anda yakin ingin menghapus data obat ini?")) return;
-    
+
     try {
       await api.delete(`/master/obat/${id}`);
       addToast("Data obat berhasil dihapus", "success");
@@ -73,7 +72,7 @@ export default function ObatTab() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    
+
     const payload = {
       nama: formData.nama,
       kategori: formData.kategori,
@@ -109,7 +108,7 @@ export default function ObatTab() {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      
+
       {/* Table Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
@@ -118,9 +117,9 @@ export default function ObatTab() {
           </h3>
           <p className="text-sm text-zinc-500 mt-1">Kelola stok dan harga obat untuk peresepan pasien.</p>
         </div>
-        
-        <Button 
-          onClick={openTambahModal} 
+
+        <Button
+          onClick={openTambahModal}
           className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-600/20 rounded-xl px-5 h-11"
         >
           <Plus className="h-4 w-4 mr-2" />
@@ -162,11 +161,10 @@ export default function ObatTab() {
                       </div>
                     </td>
                     <td className="px-8 py-5 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${
-                        item.kategori === 'RESEP' 
-                        ? 'bg-amber-50 text-amber-700 border-amber-200' 
-                        : 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                      }`}>
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${item.kategori === 'RESEP'
+                          ? 'bg-amber-50 text-amber-700 border-amber-200'
+                          : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        }`}>
                         <div className={`w-1.5 h-1.5 rounded-full mr-1.5 ${item.kategori === 'RESEP' ? 'bg-amber-500' : 'bg-emerald-500'}`}></div>
                         {item.kategori}
                       </span>
@@ -181,14 +179,14 @@ export default function ObatTab() {
                     </td>
                     <td className="px-8 py-5 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end gap-2 opacity-70 group-hover:opacity-100 transition-opacity">
-                        <button 
+                        <button
                           onClick={() => openEditModal(item)}
                           className="p-2 bg-white rounded-lg border border-zinc-200 text-zinc-600 hover:text-indigo-600 hover:border-indigo-200 shadow-sm transition-all"
                           title="Edit Obat"
                         >
                           <Edit2 className="h-4 w-4" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleDelete(item.id)}
                           className="p-2 bg-white rounded-lg border border-zinc-200 text-zinc-600 hover:text-red-600 hover:border-red-200 shadow-sm transition-all"
                           title="Hapus Obat"
@@ -213,7 +211,7 @@ export default function ObatTab() {
             <div className="fixed inset-0 bg-zinc-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsModalOpen(false)}></div>
 
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            
+
             <div className="inline-block align-bottom bg-white/90 backdrop-blur-xl border border-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full animate-in zoom-in-95 duration-200">
               <form onSubmit={handleSubmit}>
                 <div className="px-8 pt-8 pb-6">
@@ -228,7 +226,7 @@ export default function ObatTab() {
                       <X className="h-5 w-5" />
                     </button>
                   </div>
-                  
+
                   <div className="space-y-5">
                     <div>
                       <label className="block text-sm font-semibold text-zinc-700 mb-1.5">Nama Obat</label>
@@ -236,23 +234,23 @@ export default function ObatTab() {
                         required
                         placeholder="Contoh: Paracetamol 500mg"
                         value={formData.nama}
-                        onChange={(e) => setFormData({...formData, nama: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
                         className="bg-white/80 border-zinc-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl"
                       />
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-semibold text-zinc-700 mb-1.5">Kategori Peresepan</label>
                       <select
                         className="block w-full pl-3 pr-10 py-2.5 text-sm border-zinc-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-xl border bg-white/80"
                         value={formData.kategori}
-                        onChange={(e) => setFormData({...formData, kategori: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}
                       >
                         <option value="NON_RESEP">Non-Resep (Bebas)</option>
                         <option value="RESEP">Resep Dokter (Butuh Nota)</option>
                       </select>
                     </div>
-                    
+
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-semibold text-zinc-700 mb-1.5">Harga Satuan (Rp)</label>
@@ -262,11 +260,11 @@ export default function ObatTab() {
                           placeholder="0"
                           required
                           value={formData.harga}
-                          onChange={(e) => setFormData({...formData, harga: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, harga: e.target.value })}
                           className="bg-white/80 border-zinc-200 rounded-xl"
                         />
                       </div>
-                      
+
                       <div>
                         <label className="block text-sm font-semibold text-zinc-700 mb-1.5">Stok Awal</label>
                         <Input
@@ -275,7 +273,7 @@ export default function ObatTab() {
                           placeholder="0"
                           required
                           value={formData.stok}
-                          onChange={(e) => setFormData({...formData, stok: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, stok: e.target.value })}
                           className="bg-white/80 border-zinc-200 rounded-xl"
                         />
                       </div>

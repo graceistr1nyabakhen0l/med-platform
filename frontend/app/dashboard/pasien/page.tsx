@@ -3,7 +3,6 @@
 import { useAuth } from "../../../lib/useAuth";
 import ProfilForm from "./components/ProfilForm";
 import PasienBookingList from "./components/PasienBookingList";
-import ApotekMandiri from "./components/ApotekMandiri";
  
 export default function PasienDashboard() {
   const { user, isLoading: authLoading } = useAuth(["PASIEN"]);
@@ -28,7 +27,6 @@ export default function PasienDashboard() {
  
         <ProfilForm user={user} />
         <PasienBookingList user={user} />
-        <ApotekMandiri />
  
       </div>
     </div>

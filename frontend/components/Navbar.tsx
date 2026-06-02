@@ -35,9 +35,14 @@ export default function Navbar() {
             {user ? (
               <>
                 {user.role === "PASIEN" && (
-                  <Link href="/dashboard/pasien" className="text-zinc-600 hover:text-teal-600 font-medium text-sm transition-colors">
-                    Dashboard Saya
-                  </Link>
+                  <>
+                    <Link href="/apotek" className="text-zinc-600 hover:text-teal-600 font-medium text-sm transition-colors">
+                      Apotek
+                    </Link>
+                    <Link href="/dashboard/pasien" className="text-zinc-600 hover:text-teal-600 font-medium text-sm transition-colors">
+                      Dashboard Saya
+                    </Link>
+                  </>
                 )}
                 {user.role === "DOKTER" && (
                   <Link href="/dashboard/dokter" className="text-zinc-600 hover:text-teal-600 font-medium text-sm transition-colors">
