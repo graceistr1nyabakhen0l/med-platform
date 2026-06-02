@@ -10,7 +10,8 @@ import { RolesGuard } from './guards/roles.guard';
     imports: [
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.register({
-            secret: 'UKL_SUPER_RAHASIA_MEDIS_2026',
+            // SINKRONKAN: Membaca dari env yang sama dengan JwtStrategy
+            secret: process.env.JWT_SECRET || 'rahasia_super_aman_untuk_ujian_hospa',
             signOptions: { expiresIn: '1d' },
         }),
     ],
@@ -19,4 +20,3 @@ import { RolesGuard } from './guards/roles.guard';
     exports: [AuthService, PassportModule],
 })
 export class AuthModule { }
-
