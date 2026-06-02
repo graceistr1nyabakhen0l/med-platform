@@ -8,12 +8,11 @@ import { RolesGuard } from './guards/roles.guard';
 
 @Module({
     imports: [
-        PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.register({
-            // SINKRONKAN: Membaca dari env yang sama dengan JwtStrategy
-            secret: process.env.JWT_SECRET || 'rahasia_super_aman_untuk_ujian_hospa',
-            signOptions: { expiresIn: '1d' },
-        }),
+    // UBAH BARIS INI: Samakan kuncinya dengan yang di atas!
+    secret: 'UKL_SUPER_RAHASIA_MEDIS_2026', 
+    signOptions: { expiresIn: '1d' },
+}),
     ],
     providers: [AuthService, JwtStrategy, RolesGuard],
     controllers: [AuthController],
